@@ -1,5 +1,6 @@
 import React from 'react';
 import Test from './components/Test';
+import AuthenticationDetails from './components/AuthenticationDetails';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /* Context Imports */
@@ -10,6 +11,7 @@ export default class App extends React.PureComponent {
     return (
       <MuiThemeProvider>
         <AppProvider >
+          <AuthenticationDetails/>
           <Test/>
         </AppProvider>
       </MuiThemeProvider>

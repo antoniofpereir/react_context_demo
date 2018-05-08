@@ -1,7 +1,8 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+
+import deepCopy from '../utils/deepCopy';
 
 /* Context */
 import { AppConsumer } from '../context';
@@ -14,27 +15,50 @@ const style = {
     margin: '5px',
 }
 
-const Test = (props) => {
-    return (
-        <AppConsumer>
-            {context =>
-                <Paper zDepth={2} style={style}>
-                    <div>
-                        <RaisedButton label="Button" onClick={context.toggleLogin} />
-                        <div>
-                            {context.isLogged ? 'Is Logged' : 'Not Logged'}
-                        </div>
-                    </div>
-                    <div>
-                        <TextField id='textfield' onChange={context.changeText} />
-                        <div>
-                            {context.text}
-                        </div>
-                    </div>
-                </Paper>
-            }
-        </AppConsumer>
-    );
-}
+export default class Test extends React.PureComponent {
 
-export default Test;
+    constructor() {
+        super();
+        this.state = {
+            authenticationParams: {
+                username: '',
+                password: '',
+            }
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(e) {
+        let state = deepCopy(this.state);
+
+        if (e.target.id === 'username') {
+            state.authenticationParams.username = e.target.value;
+            console.log(`Username: ${e.target.value}`);
+        }
+        if (e.target.id === 'password') {
+            state.authenticationParams.password = e.target.value;
+            console.log(`Password: ${e.target.value}`);
+        }
+
+        this.setState(state);
+    }
+
+
+    render() {
+        return (
+            <AppConsumer>
+                {context =>
+                    <div style={style}>
+                        <div>
+                            <TextField id='username' floatingLabelText="Username" type='text' onChange={this.handleChange} />
+                            <TextField id='password' floatingLabelText="Password" type='password' onChange={this.handleChange} />
+                        </div>
+                        <div>
+                            <RaisedButton label="Submit" onClick={() =>context.login(this.state.authenticationParams)} />
+                        </div>
+                    </div>
+                }
+            </AppConsumer>
+        );
+    }
+}
