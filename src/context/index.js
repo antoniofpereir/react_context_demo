@@ -1,63 +1,26 @@
-import React from 'react';
-
 import { authenticationRequest } from '../requests/authenticationRequests';
 
-import { setAuhtentication } from './stateChanges/authenticationStateChanges';
+import { setAuthentication } from './stateChanges/authenticationStateChanges';
 
-import deepCopy from '../utils/deepCopy';
+import { GenericContext, GenericConsumer } from './GenericContext';
 
-const AppContext = React.createContext();
+export const AppConsumer = GenericConsumer;
 
-export class AppProvider extends React.Component {
+export class AppProvider extends GenericContext {
     constructor(props) {
         super(props);
 
-        this.state= {
+        this.state = {
             isLogged: false,
             authenticationDetails: '',
-            
+
             login: params => {
-                this.apiRequest(authenticationRequest, setAuhtentication, params);
+                this.apiRequest(authenticationRequest, setAuthentication, params);
             },
 
             setStateAndUpdateLocalStorage: (data, functionalSetState) => {
                 this.setStateAndUpdateLocalStorage(data, functionalSetState)
             }
         }
-
-    }
-
-    apiRequest(request, functionalSetState, param) {
-        request(this.state.setStateAndUpdateLocalStorage, functionalSetState, param);
-    }
-
-    setStateAndUpdateLocalStorage(data, functionalSetState) {
-        this.setState(functionalSetState(this.state, data), () => {
-            let newState = deepCopy(this.state);
-            localStorage.setItem('context_test', JSON.stringify(newState));
-        });
-    }
-
-    getContextFromLocalStorage() {
-        const localStorageContext = JSON.parse(localStorage.getItem('context_test'));
-
-        if (localStorageContext !== null) {
-            this.setState(localStorageContext);
-        }
-    }
-
-    componentDidMount() {
-        this.getContextFromLocalStorage();
-    }
-
-    render() {
-        //local storage updated verification
-        return (
-            <AppContext.Provider value={this.state}>
-                {this.props.children}
-            </AppContext.Provider>
-        );
     }
 }
-
-export const AppConsumer = AppContext.Consumer;

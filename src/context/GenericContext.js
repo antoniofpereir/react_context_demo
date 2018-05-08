@@ -1,5 +1,9 @@
 import React from 'react';
 
+import deepCopy from '../utils/deepCopy';
+
+const AppContext = React.createContext();
+
 export class GenericContext extends React.PureComponent {
 
     apiRequest(request, functionalSetState, param) {
@@ -10,6 +14,7 @@ export class GenericContext extends React.PureComponent {
         this.setState(functionalSetState(this.state, data), () => {
             let newState = deepCopy(this.state);
             localStorage.setItem('context_test', JSON.stringify(newState));
+            console.log('Context in state: ', this.state);
         });
     }
 
@@ -25,4 +30,14 @@ export class GenericContext extends React.PureComponent {
         this.getContextFromLocalStorage();
     }
     
+    render() {
+        return (
+            <AppContext.Provider value={this.state}>
+                {this.props.children}
+            </AppContext.Provider>
+        );
+    }
+
 }
+
+export const GenericConsumer = AppContext.Consumer;
