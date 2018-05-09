@@ -1,26 +1,25 @@
 import React from 'react';
 
-import { AppConsumer } from '../context';
+import withContext from '../contextLibrary/GenericConsumer';
 
 const style = {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
     margin: '5px',
     paddingTop: '50px',
 }
 
-const AuthenticationDetails = () => {
-    return (
-        <AppConsumer>
-            {context =>
-                <div style={style}>
-                    <h1>Authentication Details: {context.authenticationDetails}</h1>
-                </div>
-            }
-        </AppConsumer>
-    );
+class AuthenticationDetails extends React.PureComponent {
+    render() {
+        return (
+            <div style={style}>
+                <h1>Authentication Details: {this.props.context.authenticationDetails.message}</h1>
+                { this.props.context.isLogged && <h2>Hello, {this.props.context.authenticationDetails.username}</h2>}
+            </div>
+        );
+    }
 }
 
-export default AuthenticationDetails;
+export default withContext(AuthenticationDetails);

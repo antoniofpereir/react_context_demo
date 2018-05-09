@@ -2,12 +2,12 @@ import React from 'react';
 
 import deepCopy from '../utils/deepCopy';
 
-const AppContext = React.createContext();
+export const AppContext = React.createContext();
 
-export class GenericContext extends React.PureComponent {
+export default class GenericContext extends React.PureComponent {
 
     apiRequest(request, functionalSetState, param) {
-        request(this.state.setStateAndUpdateLocalStorage, functionalSetState, param);
+        request(this.setStateAndUpdateLocalStorage.bind(this), functionalSetState, param);
     }
 
     setStateAndUpdateLocalStorage(data, functionalSetState) {
@@ -39,5 +39,3 @@ export class GenericContext extends React.PureComponent {
     }
 
 }
-
-export const GenericConsumer = AppContext.Consumer;

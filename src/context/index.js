@@ -5,25 +5,21 @@ import { authenticationRequest } from '../requests/authenticationRequests';
 import { setAuthentication } from './stateChanges/authenticationStateChanges';
 
 // Generic Context imports
-import { GenericContext, GenericConsumer } from './GenericContext';
-
-export const AppConsumer = GenericConsumer;
+import GenericContext from '../contextLibrary/GenericContext';
 
 export class AppProvider extends GenericContext {
     constructor(props) {
         super(props);
-
         this.state = {
             isLogged: false,
-            authenticationDetails: '',
+            authenticationDetails: {
+                message: '',
+                username: '',
+            },
 
             login: params => {
                 this.apiRequest(authenticationRequest, setAuthentication, params);
             },
-
-            setStateAndUpdateLocalStorage: (data, functionalSetState) => {
-                this.setStateAndUpdateLocalStorage(data, functionalSetState)
-            }
         }
     }
 }
