@@ -1,7 +1,10 @@
+// API Requests
 import { authenticationRequest } from '../requests/authenticationRequests';
 
+// Functional Set States
 import { setAuthentication } from './stateChanges/authenticationStateChanges';
 
+// Generic Context imports
 import { GenericContext, GenericConsumer } from './GenericContext';
 
 export const AppConsumer = GenericConsumer;
