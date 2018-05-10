@@ -14,6 +14,7 @@ export default class GenericContext extends React.PureComponent {
         this.setState(functionalSetState(this.state, data), () => {
             let newState = deepCopy(this.state);
             localStorage.setItem('context_test', JSON.stringify(newState));
+            console.log("Context in local storage updated to: ", newState);
         });
     }
 

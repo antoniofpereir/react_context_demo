@@ -41,19 +41,28 @@ class Test extends React.PureComponent {
         this.setState(state);
     }
 
+    handleSubmit() {
+        this.props.context.login(this.state.authenticationParams);
+        this.setState({
+            authenticationParams: {
+                username: '',
+                password: '',
+            }
+        })
+    }
 
     render() {
         return (
             <div style={style}>
                 <div>
-                    <TextField id='username' floatingLabelText={this.props.context.isLogged ? "Change Username" : "Username"} type='text' onChange={this.handleChange} />
+                    <TextField id='username' value={this.state.authenticationParams.username} floatingLabelText={this.props.context.isLogged ? "Change Username" : "Username"} type='text' onChange={this.handleChange} />
                 </div>
                 <div>
-                    
-                {!this.props.context.isLogged && <TextField id='password' floatingLabelText="Password" type='password' onChange={this.handleChange} />}
+
+                    {!this.props.context.isLogged && <TextField id='password' floatingLabelText="Password" type='password' onChange={this.handleChange} />}
                 </div>
                 <div>
-                    <RaisedButton label="Submit" onClick={() => this.props.context.login(this.state.authenticationParams)} />
+                    <RaisedButton label="Submit" onClick={this.handleSubmit.bind(this)} />
                 </div>
                 {this.props.context.isLogged &&
                     <div>
