@@ -33,11 +33,9 @@ class Test extends React.PureComponent {
 
         if (e.target.id === 'username') {
             state.authenticationParams.username = e.target.value;
-            // console.log(`Username: ${e.target.value}`);
         }
         if (e.target.id === 'password') {
             state.authenticationParams.password = e.target.value;
-            // console.log(`Password: ${e.target.value}`);
         }
 
         this.setState(state);
@@ -49,11 +47,19 @@ class Test extends React.PureComponent {
             <div style={style}>
                 <div>
                     <TextField id='username' floatingLabelText={this.props.context.isLogged ? "Change Username" : "Username"} type='text' onChange={this.handleChange} />
-                    { !this.props.context.isLogged && <TextField id='password' floatingLabelText="Password" type='password' onChange={this.handleChange} />}
+                </div>
+                <div>
+                    
+                {!this.props.context.isLogged && <TextField id='password' floatingLabelText="Password" type='password' onChange={this.handleChange} />}
                 </div>
                 <div>
                     <RaisedButton label="Submit" onClick={() => this.props.context.login(this.state.authenticationParams)} />
                 </div>
+                {this.props.context.isLogged &&
+                    <div>
+                        <RaisedButton label="Logout" onClick={() => this.props.context.logout()} />
+                    </div>
+                }
             </div>
         );
     }

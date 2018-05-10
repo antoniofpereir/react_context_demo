@@ -15,7 +15,7 @@ class AuthenticationDetails extends React.PureComponent {
     render() {
         return (
             <div style={style}>
-                <h1>Authentication Details: {this.props.context.authenticationDetails.message}</h1>
+                <h1>{this.props.context.isLogged ? 'Authentication Details:' : 'Please Login'} {this.props.context.authenticationDetails.message}</h1>
                 { this.props.context.isLogged && <h2>Hello, {this.props.context.authenticationDetails.username}</h2>}
             </div>
         );
