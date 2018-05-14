@@ -1,63 +1,37 @@
-import React from 'react';
-
+// API Requests
 import { authenticationRequest } from '../requests/authenticationRequests';
 
-import { setAuhtentication } from './stateChanges/authenticationStateChanges';
+// Functional Set States
+import { setAuthentication } from './stateChanges/authenticationStateChanges';
+import { toggleAwesomeText } from './stateChanges/localStateChanges';
 
-import deepCopy from '../utils/deepCopy';
+// Generic Context imports
+import GenericContext from '../contextLibrary/GenericContext';
 
-const AppContext = React.createContext();
-
-export class AppProvider extends React.Component {
+export class AppProvider extends GenericContext {
     constructor(props) {
         super(props);
+        this.state = {
 
-        this.state= {
+            // Context variables
             isLogged: false,
-            authenticationDetails: '',
-            
-            login: params => {
-                this.apiRequest(authenticationRequest, setAuhtentication, params);
+            authenticationDetails: {
+                message: '',
+                username: '',
             },
+            awesomeTextVisible: false,
 
-            setStateAndUpdateLocalStorage: (data, functionalSetState) => {
-                this.setStateAndUpdateLocalStorage(data, functionalSetState)
-            }
+            // Context actions
+            login: params => {
+                this.apiRequest(authenticationRequest, setAuthentication, params);
+            },
+            logout: () => {
+                localStorage.clear();
+                window.location.reload();
+            },
+            toggleAwesomeText: () => {
+                this.setStateAndUpdateLocalStorage(null, toggleAwesomeText);
+            },
         }
-
-    }
-
-    apiRequest(request, functionalSetState, param) {
-        request(this.state.setStateAndUpdateLocalStorage, functionalSetState, param);
-    }
-
-    setStateAndUpdateLocalStorage(data, functionalSetState) {
-        this.setState(functionalSetState(this.state, data), () => {
-            let newState = deepCopy(this.state);
-            localStorage.setItem('context_test', JSON.stringify(newState));
-        });
-    }
-
-    getContextFromLocalStorage() {
-        const localStorageContext = JSON.parse(localStorage.getItem('context_test'));
-
-        if (localStorageContext !== null) {
-            this.setState(localStorageContext);
-        }
-    }
-
-    componentDidMount() {
-        this.getContextFromLocalStorage();
-    }
-
-    render() {
-        //local storage updated verification
-        return (
-            <AppContext.Provider value={this.state}>
-                {this.props.children}
-            </AppContext.Provider>
-        );
     }
 }
-
-export const AppConsumer = AppContext.Consumer;
