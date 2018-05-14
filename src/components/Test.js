@@ -42,7 +42,8 @@ class Test extends React.PureComponent {
     }
 
     handleSubmit() {
-        this.props.context.login(this.state.authenticationParams);
+        // this.props.context.login(this.state.authenticationParams);
+        this.props.context.execute('login', this.state.authenticationParams)
         this.setState({
             authenticationParams: {
                 username: '',

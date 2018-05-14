@@ -6,6 +6,14 @@ export const AppContext = React.createContext();
 
 export default class GenericContext extends React.PureComponent {
 
+    executeAction(action, param) {
+        if(action.request === null) {
+            this.setStateAndUpdateLocalStorage(param, action.functionalSetState)
+        } else {
+            this.apiRequest(action.request, action.functionalSetState, param)
+        }
+    }
+
     apiRequest(request, functionalSetState, param) {
         request(this.setStateAndUpdateLocalStorage.bind(this), functionalSetState, param);
     }

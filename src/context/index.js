@@ -1,9 +1,5 @@
-// API Requests
-import { authenticationRequest } from '../requests/authenticationRequests';
-
-// Functional Set States
-import { setAuthentication } from './stateChanges/authenticationStateChanges';
-import { toggleAwesomeText } from './stateChanges/localStateChanges';
+// Actions
+import getAction from './actions';
 
 // Generic Context imports
 import GenericContext from '../contextLibrary/GenericContext';
@@ -22,16 +18,15 @@ export class AppProvider extends GenericContext {
             awesomeTextVisible: false,
 
             // Context actions
-            login: params => {
-                this.apiRequest(authenticationRequest, setAuthentication, params);
-            },
             logout: () => {
                 localStorage.clear();
                 window.location.reload();
             },
-            toggleAwesomeText: () => {
-                this.setStateAndUpdateLocalStorage(null, toggleAwesomeText);
-            },
+
+            // EXECUTE
+            execute: (actionType, param) => {
+                this.executeAction(getAction(actionType), param);
+            }
         }
     }
 }
