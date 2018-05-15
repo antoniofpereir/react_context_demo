@@ -1,3 +1,6 @@
+// Actions Controller
+import { createAction, filterAction } from '../../contextLibrary/ActionsController';
+
 // API Requests
 import { authenticationRequest } from '../../requests/authenticationRequests';
 
@@ -5,25 +8,12 @@ import { authenticationRequest } from '../../requests/authenticationRequests';
 import { setAuthentication } from '../stateChanges/authenticationStateChanges';
 import { toggleAwesomeText } from '../stateChanges/localStateChanges';
 
-export default function getAction(actionType) {
-    let request = null;
-    let functionalSetState = null;
-
-    switch (actionType) {
-        case 'login':
-            request = authenticationRequest;
-            functionalSetState = setAuthentication;
-            break;
-        case 'toggleText':
-            functionalSetState = toggleAwesomeText;
-        // no default
-    }
-    return createAction(request, functionalSetState);
+// Defining Actions
+const actions = {
+    'login': createAction(authenticationRequest, setAuthentication),
+    'toggleText': createAction(null, toggleAwesomeText),
 }
 
-function createAction(request, functionalSetState) {
-    return {
-        request: request,
-        functionalSetState: functionalSetState
-    }
-}
+// Calling and exporting the getAction used by the context component
+const getAction = (actionType) => filterAction(actionType, actions);
+export default getAction;

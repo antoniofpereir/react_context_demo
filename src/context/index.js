@@ -1,5 +1,5 @@
 // Actions
-import getAction from './actions';
+import getAction from './actions'
 
 // Generic Context imports
 import GenericContext from '../contextLibrary/GenericContext';
@@ -25,7 +25,8 @@ export class AppProvider extends GenericContext {
 
             // EXECUTE
             execute: (actionType, param) => {
-                this.executeAction(getAction(actionType), param);
+                let action = getAction(actionType);
+                this.executeAction(action, param);
             }
         }
     }
