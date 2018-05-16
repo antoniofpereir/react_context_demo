@@ -35,7 +35,13 @@ export default class GenericContext extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.test('poop','pooping', 'more pooping', 'even more pooping');
         this.getContextFromLocalStorage();
+    }
+
+    test(ola, ...param) {
+        console.log('Poop', ola);
+        console.log('Group of poops', param);
     }
     
     render() {
