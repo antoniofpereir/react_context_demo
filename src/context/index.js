@@ -24,7 +24,7 @@ export class AppProvider extends GenericContext {
             },
 
             // EXECUTE
-            execute: (actionType, param) => {
+            execute: (actionType, ...param) => {
                 let action = getAction(actionType);
                 this.executeAction(action, param);
             }
