@@ -6,6 +6,27 @@ export const AppContext = React.createContext();
 
 export default class GenericContext extends React.PureComponent {
 
+    executeAction(action, param) {
+        if (action.request === null) {
+            if (param.length === 0) {
+                this.setStateAndUpdateLocalStorage(null, action.functionalSetState);
+            } else if (param.length === 1) {
+                this.setStateAndUpdateLocalStorage(param[0], action.functionalSetState);
+            } else if (param.length > 1) {
+                this.setStateAndUpdateLocalStorage(param, action.functionalSetState);
+            }
+            
+        } else {
+            if (param.length === 0) {
+                this.apiRequest(action.request, action.functionalSetState)
+            } else if (param.length === 1) {
+                this.apiRequest(action.request, action.functionalSetState, param[0]);
+            } else if (param.length > 1) {
+                this.apiRequest(action.request, action.functionalSetState, param);
+            }
+        }
+    }
+
     apiRequest(request, functionalSetState, param) {
         request(this.setStateAndUpdateLocalStorage.bind(this), functionalSetState, param);
     }
@@ -27,7 +48,13 @@ export default class GenericContext extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.test('poop','pooping', 'more pooping', 'even more pooping');
         this.getContextFromLocalStorage();
+    }
+
+    test(ola, ...param) {
+        console.log('Poop', ola);
+        console.log('Group of poops', param);
     }
     
     render() {
