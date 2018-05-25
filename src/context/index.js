@@ -1,33 +1,22 @@
-// Actions
-import getAction from './actions'
+import generateContext from '../contextLibrary/GenerateContext';
 
-// Generic Context imports
-import GenericContext from '../contextLibrary/GenericContext';
+const FirstContext = {
 
-export class AppProvider extends GenericContext {
-    constructor(props) {
-        super(props);
-        this.state = {
+    isLogged: false,
+    authenticationDetails: {
+        message: '',
+        username: '',
+    },
+    awesomeTextVisible: false,
 
-            // Context variables
-            isLogged: false,
-            authenticationDetails: {
-                message: '',
-                username: '',
-            },
-            awesomeTextVisible: false,
-
-            // Context actions
-            logout: () => {
-                localStorage.clear();
-                window.location.reload();
-            },
-
-            // EXECUTE
-            execute: (actionType, ...param) => {
-                let action = getAction(actionType);
-                this.executeAction(action, param);
-            }
-        }
-    }
+    logout: () => {
+        localStorage.clear();
+        window.location.reload();
+    },
 }
+
+const SecondContext = {
+    lel: 'yes lel'
+}
+
+export const AppProvider = generateContext(FirstContext, SecondContext);

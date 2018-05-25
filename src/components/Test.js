@@ -51,7 +51,9 @@ class Test extends React.PureComponent {
             }
         })
     }
-
+componentDidMount() {
+    console.log(this.props);
+}
     render() {
         return (
             <div style={style}>
