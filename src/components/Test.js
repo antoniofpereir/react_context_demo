@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import deepCopy from '../utils/deepCopy';
 
 /* Context */
-import withContext from '../contextLibrary/GenericConsumer';
+import { withContext } from '../contextLibrary';
 
 const style = {
     display: 'flex',
@@ -51,9 +51,9 @@ class Test extends React.PureComponent {
             }
         })
     }
-componentDidMount() {
-    console.log(this.props);
-}
+    componentDidMount() {
+        console.log(this.props);
+    }
     render() {
         return (
             <div style={style}>

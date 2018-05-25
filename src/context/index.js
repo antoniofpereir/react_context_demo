@@ -1,4 +1,4 @@
-import generateContext from '../contextLibrary/GenerateContext';
+import { generateContext } from '../contextLibrary';
 
 const FirstContext = {
 

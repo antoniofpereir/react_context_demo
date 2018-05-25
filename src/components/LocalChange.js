@@ -1,5 +1,5 @@
 import React from 'react';
-import withContext from '../contextLibrary/GenericConsumer';
+import { withContext } from '../contextLibrary';
 
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -15,10 +15,10 @@ const style = {
 class LocalChanges extends React.PureComponent {
 
     render() {
-        return(
+        return (
             <div style={style}>
-                <RaisedButton label={`${this.props.context.awesomeTextVisible ? 'Hide' : 'Show'} Awesome Text`} onClick={() => this.props.context.execute('toggleText')}/>
-                { this.props.context.awesomeTextVisible && <h1 style={{paddingTop: '40px'}}>F3</h1>}
+                <RaisedButton label={`${this.props.context.awesomeTextVisible ? 'Hide' : 'Show'} Awesome Text`} onClick={() => this.props.context.execute('toggleText')} />
+                {this.props.context.awesomeTextVisible && <h1 style={{ paddingTop: '40px' }}>F3</h1>}
             </div>
         );
     }

@@ -1,5 +1,6 @@
 // Actions Controller
-import { createAction, filterAction } from '../../contextLibrary/ActionsController';
+import { filterAction } from '../../contextLibrary/ActionsController';
+import { createAction } from '../../contextLibrary';
 
 // API Requests
 import { authenticationRequest } from '../../requests/authenticationRequests';

@@ -3,8 +3,8 @@ import GenericContext from './GenericContext';
 // Actions
 import getAction from '../context/actions';
 
-export default function generateContext(...data) {
-    return class FullContext extends GenericContext {
+export default function mergeAndGenerateContext(...data) {
+    return class Context extends GenericContext {
 
         constructor(props) {
             let context = Object.assign(...data);
