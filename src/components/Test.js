@@ -42,7 +42,6 @@ class Test extends React.PureComponent {
     }
 
     handleSubmit() {
-        // this.props.context.login(this.state.authenticationParams);
         this.props.context.execute('login', this.state.authenticationParams)
         this.setState({
             authenticationParams: {
@@ -51,9 +50,12 @@ class Test extends React.PureComponent {
             }
         })
     }
-    componentDidMount() {
-        console.log(this.props);
+
+    logout() {
+        localStorage.clear();
+        window.location.reload();
     }
+
     render() {
         return (
             <div style={style}>
@@ -69,7 +71,7 @@ class Test extends React.PureComponent {
                 </div>
                 {this.props.context.isLogged &&
                     <div>
-                        <RaisedButton label="Logout" onClick={() => this.props.context.logout()} />
+                        <RaisedButton label="Logout" onClick={this.logout.bind(this)} />
                     </div>
                 }
             </div>

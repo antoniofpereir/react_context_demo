@@ -7,17 +7,17 @@ import LocalChange from './components/LocalChange';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /* Context Imports */
-import { AppProvider } from './context';
+import { ContextProvider } from './context';
 
 export default class App extends React.PureComponent {
   render() {
     return (
       <MuiThemeProvider>
-        <AppProvider >
+        <ContextProvider >
           <AuthenticationDetails/>
           <Test/>
           <LocalChange/>
-        </AppProvider>
+        </ContextProvider>
       </MuiThemeProvider>
     );
   }

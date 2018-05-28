@@ -1,4 +1,4 @@
-export function createAction(request, functionalSetState) {
+export default function createAction(request, functionalSetState) {
     return {
         request: request,
         functionalSetState: functionalSetState

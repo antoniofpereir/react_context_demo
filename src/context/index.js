@@ -1,22 +1,29 @@
+// Generate Context
 import { generateContext } from '../contextLibrary';
 
-const FirstContext = {
+// Actions
+import { actions } from './actions';
 
+// Contexts
+const FirstContext = {
     isLogged: false,
     authenticationDetails: {
         message: '',
         username: '',
     },
     awesomeTextVisible: false,
-
-    logout: () => {
-        localStorage.clear();
-        window.location.reload();
-    },
 }
 
 const SecondContext = {
     lel: 'yes lel'
 }
 
-export const AppProvider = generateContext(FirstContext, SecondContext);
+const ThirdContext = {
+    anotherLel: 'lelel'
+}
+
+// Generating Context Provider
+export const ContextProvider = generateContext(actions, 
+                                               FirstContext, 
+                                               SecondContext, 
+                                               ThirdContext);
