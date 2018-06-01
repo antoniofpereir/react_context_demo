@@ -6,7 +6,7 @@ import { filterAction } from './ActionsController';
 
 export const AppContext = React.createContext();
 
-export default function generateContext(actions, ...data) {
+export default function initContext(actions, ...data) {
     return class GenericContext extends React.PureComponent {
 
         constructor(props) {

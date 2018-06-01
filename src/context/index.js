@@ -1,5 +1,5 @@
-// Generate Context
-import { generateContext } from '../contextLibrary';
+// Init Context
+import { initContext } from '../contextLibrary';
 
 // Actions
 import { actions } from './actions';
@@ -23,7 +23,7 @@ const ThirdContext = {
 }
 
 // Generating Context Provider
-export const ContextProvider = generateContext(actions, 
+export const ContextProvider = initContext(actions, 
                                                FirstContext, 
                                                SecondContext, 
                                                ThirdContext);
