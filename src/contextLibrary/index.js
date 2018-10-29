@@ -50,6 +50,9 @@ export function initContext(actions, ...data) {
       );
     }
 
+    /**
+     * Wraps child components with context provider.
+     */
     render() {
       return (
         <AppContext.Provider value={{ ...this.state, execute: this.execute }}>
