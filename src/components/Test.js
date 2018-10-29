@@ -34,14 +34,7 @@ class Test extends React.PureComponent {
 
   handleChange(e) {
     let state = deepCopy(this.state);
-
-    if (e.target.id === 'username') {
-      state.authenticationParams.username = e.target.value;
-    }
-    if (e.target.id === 'password') {
-      state.authenticationParams.password = e.target.value;
-    }
-
+    state.authenticationParams[e.target.id] = e.target.value;
     this.setState(state);
   }
 

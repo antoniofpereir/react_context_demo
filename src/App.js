@@ -14,9 +14,11 @@ export default class App extends React.PureComponent {
     return (
       <ContextProvider>
         <MuiThemeProvider>
-          <AuthenticationDetails />
-          <Test />
-          <LocalChange />
+          <React.Fragment>
+            <AuthenticationDetails />
+            <Test />
+            <LocalChange />
+          </React.Fragment>
         </MuiThemeProvider>
       </ContextProvider>
     );

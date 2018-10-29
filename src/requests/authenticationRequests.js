@@ -1,5 +1,4 @@
 export function authenticationRequest(param) {
-    console.log('params: ', param);
   let response = {
     message: 'Poop',
     username: param.username,
