@@ -8,7 +8,7 @@ import deepCopy from '../utils/deepCopy';
 import { authenticationRequest } from '../requests/authenticationRequests';
 
 /* Context */
-import { AppContext } from '../contextLibrary';
+import { context } from '../contextLibrary';
 
 const style = {
   display: 'flex',
@@ -19,7 +19,7 @@ const style = {
 };
 
 class Test extends React.PureComponent {
-  static contextType = AppContext;
+  static contextType = context;
 
   constructor() {
     super();

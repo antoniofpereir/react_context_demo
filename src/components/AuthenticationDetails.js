@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AppContext } from '../contextLibrary';
+import { context } from '../contextLibrary';
 
 const style = {
     display: 'flex',
@@ -12,7 +12,7 @@ const style = {
 }
 
 class AuthenticationDetails extends React.PureComponent {
-    static contextType = AppContext;
+    static contextType = context;
 
     render() {
         return (

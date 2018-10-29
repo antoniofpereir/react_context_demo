@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AppContext } from '../contextLibrary';
+import { context } from '../contextLibrary';
 
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -14,7 +14,7 @@ const style = {
 };
 
 class LocalChanges extends React.PureComponent {
-  static contextType = AppContext;
+  static contextType = context;
 
   render() {
     return (
