@@ -4,7 +4,7 @@ import React from 'react';
  * Context object containing the Provider and Consumer objects.
  * The export is necessary in order to use contextType to inject context (React@16.6.0).
  */
-export const AppContext = React.createContext();
+export const context = React.createContext();
 
 /**
  * Init app context provider to wrap the application.
