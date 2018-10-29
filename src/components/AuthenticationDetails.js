@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withContext } from '../contextLibrary';
+import { AppContext } from '../contextLibrary';
 
 const style = {
     display: 'flex',
@@ -12,14 +12,17 @@ const style = {
 }
 
 class AuthenticationDetails extends React.PureComponent {
+    static contextType = AppContext;
+
     render() {
+        console.log(this.context);
         return (
             <div style={style}>
-                <h1>{this.props.context.isLogged ? 'Authentication Details:' : 'Please Login'} {this.props.context.authenticationDetails.message}</h1>
-                {this.props.context.isLogged && <h2>Hello, {this.props.context.authenticationDetails.username}</h2>}
+                <h1>{this.context.state.isLogged ? 'Authentication Details:' : 'Please Login'} {this.context.state.authenticationDetails.message}</h1>
+                {this.context.state.isLogged && <h2>Hello, {this.context.state.authenticationDetails.username}</h2>}
             </div>
         );
     }
 }
 
-export default withContext(AuthenticationDetails);
+export default AuthenticationDetails;

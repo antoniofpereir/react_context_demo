@@ -8,17 +8,19 @@ export const AppContext = React.createContext();
 
 export default function initContext(actions, ...data) {
     return class GenericContext extends React.PureComponent {
+        constructor() {
+            super();
 
-        constructor(props) {
             let context = Object.assign(...data);
 
-            context.execute = (actionType, ...param) => {
+            const contextFromLocalStorage = this.getContextFromLocalStorage();
+
+            this.state = contextFromLocalStorage || context;
+
+            this.execute = (actionType, ...param) => {
                 const action = filterAction(actionType, actions);
                 this.executeAction(action, param);
             };
-
-            super(props);
-            this.state = context;
         }
 
         executeAction(action, param) {
@@ -55,20 +57,13 @@ export default function initContext(actions, ...data) {
         }
 
         getContextFromLocalStorage() {
-            const localStorageContext = JSON.parse(localStorage.getItem('context_test'));
-
-            if (localStorageContext !== null) {
-                this.setState(localStorageContext);
-            }
-        }
-
-        componentDidMount() {
-            this.getContextFromLocalStorage();
+            return JSON.parse(localStorage.getItem('context_test'));
         }
 
         render() {
+            console.log("context render");
             return (
-                <AppContext.Provider value={this.state}>
+                <AppContext.Provider value={{state: this.state, execute: this.execute}}>
                     {this.props.children}
                 </AppContext.Provider>
             );
