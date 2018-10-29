@@ -4,7 +4,7 @@ import React from 'react';
  * Context object containing the Provider and Consumer objects.
  * The export is necessary in order to use contextType to inject context (React@16.6.0).
  */
-export const context = React.createContext();
+export const AppContext = React.createContext();
 
 /**
  * Init app context provider to wrap the application.
@@ -15,6 +15,7 @@ export const context = React.createContext();
 export function initContext(actions, ...data) {
   return class GenericContext extends React.PureComponent {
     constructor() {
+      console.log(process.env);
       super();
       const newContext = Object.assign(...data);
       const contextFromLocalStorage = JSON.parse(
