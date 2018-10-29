@@ -16,30 +16,30 @@ export default function initContext(actions, ...data) {
             this.state = contextFromLocalStorage || context;
 
             this.execute = (actionType, ...param) => {
-                const action = filterAction(actionType, actions);
-                this.executeAction(action, param);
+                const functionalSetState = filterAction(actionType, actions);
+                this.executeAction(functionalSetState, param);
             };
         }
 
-        executeAction(action, param) {
-            if (action.request === null) {
+        executeAction(functionalSetState, param) {
+            // if (action.request === null) {
                 if (param.length === 0) {
-                    this.setStateAndUpdateLocalStorage(null, action.functionalSetState);
+                    this.setStateAndUpdateLocalStorage(null, functionalSetState);
                 } else if (param.length === 1) {
-                    this.setStateAndUpdateLocalStorage(param[0], action.functionalSetState);
+                    this.setStateAndUpdateLocalStorage(param[0], functionalSetState);
                 } else if (param.length > 1) {
-                    this.setStateAndUpdateLocalStorage(param, action.functionalSetState);
+                    this.setStateAndUpdateLocalStorage(param, functionalSetState);
                 }
 
-            } else {
-                if (param.length === 0) {
-                    this.apiRequest(action.request, action.functionalSetState)
-                } else if (param.length === 1) {
-                    this.apiRequest(action.request, action.functionalSetState, param[0]);
-                } else if (param.length > 1) {
-                    this.apiRequest(action.request, action.functionalSetState, param);
-                }
-            }
+            // } else {
+            //     if (param.length === 0) {
+            //         this.apiRequest(action.request, action.functionalSetState)
+            //     } else if (param.length === 1) {
+            //         this.apiRequest(action.request, action.functionalSetState, param[0]);
+            //     } else if (param.length > 1) {
+            //         this.apiRequest(action.request, action.functionalSetState, param);
+            //     }
+            // }
         }
 
         apiRequest(request, functionalSetState, param) {
@@ -47,7 +47,7 @@ export default function initContext(actions, ...data) {
         }
 
         setStateAndUpdateLocalStorage(data, functionalSetState) {
-            this.setState(functionalSetState(this.state, data), () => {
+            this.setState(prevState => functionalSetState(prevState, data), () => {
                 localStorage.setItem('context_test', JSON.stringify(this.state));
                 console.log("Context in local storage updated to: ", this.state);
             });
@@ -59,7 +59,7 @@ export default function initContext(actions, ...data) {
 
         render() {
             return (
-                <AppContext.Provider value={{state: this.state, execute: this.execute}}>
+                <AppContext.Provider value={{...this.state, execute: this.execute}}>
                     {this.props.children}
                 </AppContext.Provider>
             );

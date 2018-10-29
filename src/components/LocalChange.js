@@ -21,11 +21,11 @@ class LocalChanges extends React.PureComponent {
       <div style={style}>
         <RaisedButton
           label={`${
-            this.context.state.awesomeTextVisible ? 'Hide' : 'Show'
+            this.context.loginInformation.awesomeTextVisible ? 'Hide' : 'Show'
           } Awesome Text`}
           onClick={() => this.context.execute('toggleText')}
         />
-        {this.context.state.awesomeTextVisible && (
+        {this.context.loginInformation.awesomeTextVisible && (
           <h1 style={{ paddingTop: '40px' }}>F3</h1>
         )}
       </div>

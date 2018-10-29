@@ -4,6 +4,9 @@ import TextField from 'material-ui/TextField';
 
 import deepCopy from '../utils/deepCopy';
 
+/* Requests */
+import { authenticationRequest } from '../requests/authenticationRequests';
+
 /* Context */
 import { AppContext } from '../contextLibrary';
 
@@ -43,7 +46,9 @@ class Test extends React.PureComponent {
   }
 
   handleSubmit() {
-    this.context.execute('login', this.state.authenticationParams);
+    authenticationRequest(this.state.authenticationParams).then(response =>
+      this.context.execute('login', response)
+    );
     this.setState({
       authenticationParams: {
         username: '',
@@ -65,14 +70,16 @@ class Test extends React.PureComponent {
             id="username"
             value={this.state.authenticationParams.username}
             floatingLabelText={
-              this.context.state.isLogged ? 'Change Username' : 'Username'
+              this.context.loginInformation.isLogged
+                ? 'Change Username'
+                : 'Username'
             }
             type="text"
             onChange={this.handleChange}
           />
         </div>
         <div>
-          {!this.context.state.isLogged && (
+          {!this.context.loginInformation.isLogged && (
             <TextField
               id="password"
               floatingLabelText="Password"
@@ -84,7 +91,7 @@ class Test extends React.PureComponent {
         <div>
           <RaisedButton label="Submit" onClick={this.handleSubmit.bind(this)} />
         </div>
-        {this.context.state.isLogged && (
+        {this.context.loginInformation.isLogged && (
           <div>
             <RaisedButton label="Logout" onClick={this.logout.bind(this)} />
           </div>

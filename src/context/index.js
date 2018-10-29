@@ -5,7 +5,7 @@ import { initContext } from '../contextLibrary';
 import { actions } from './actions';
 
 // Contexts
-const FirstContext = {
+const loginInformation = {
     isLogged: false,
     authenticationDetails: {
         message: '',
@@ -14,16 +14,16 @@ const FirstContext = {
     awesomeTextVisible: false,
 }
 
-const SecondContext = {
+const lelInformation = {
     lel: 'yes lel'
 }
 
-const ThirdContext = {
+const anotherLelInformation = {
     anotherLel: 'lelel'
 }
 
 // Generating Context Provider
 export const ContextProvider = initContext(actions, 
-                                               FirstContext, 
-                                               SecondContext, 
-                                               ThirdContext);
+                                               {loginInformation, 
+                                               lelInformation, 
+                                               anotherLelInformation});
