@@ -15,7 +15,6 @@ export const AppContext = React.createContext();
 export function initContext(actions, ...data) {
   return class GenericContext extends React.PureComponent {
     constructor() {
-      console.log(process.env);
       super();
       const newContext = Object.assign(...data);
       const contextFromLocalStorage = JSON.parse(
