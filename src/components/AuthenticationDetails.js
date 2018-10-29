@@ -15,7 +15,6 @@ class AuthenticationDetails extends React.PureComponent {
     static contextType = AppContext;
 
     render() {
-        console.log(this.context);
         return (
             <div style={style}>
                 <h1>{this.context.state.isLogged ? 'Authentication Details:' : 'Please Login'} {this.context.state.authenticationDetails.message}</h1>

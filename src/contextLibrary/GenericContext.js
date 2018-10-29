@@ -1,7 +1,5 @@
 import React from 'react';
 
-import deepCopy from '../utils/deepCopy';
-
 import { filterAction } from './ActionsController';
 
 export const AppContext = React.createContext();
@@ -50,9 +48,8 @@ export default function initContext(actions, ...data) {
 
         setStateAndUpdateLocalStorage(data, functionalSetState) {
             this.setState(functionalSetState(this.state, data), () => {
-                let newState = deepCopy(this.state);
-                localStorage.setItem('context_test', JSON.stringify(newState));
-                console.log("Context in local storage updated to: ", newState);
+                localStorage.setItem('context_test', JSON.stringify(this.state));
+                console.log("Context in local storage updated to: ", this.state);
             });
         }
 
@@ -61,7 +58,6 @@ export default function initContext(actions, ...data) {
         }
 
         render() {
-            console.log("context render");
             return (
                 <AppContext.Provider value={{state: this.state, execute: this.execute}}>
                     {this.props.children}
