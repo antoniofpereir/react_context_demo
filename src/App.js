@@ -12,13 +12,13 @@ import { ContextProvider } from './context';
 export default class App extends React.PureComponent {
   render() {
     return (
-      <MuiThemeProvider>
-        <ContextProvider >
-          <AuthenticationDetails/>
-          <Test/>
-          <LocalChange/>
-        </ContextProvider>
-      </MuiThemeProvider>
+      <ContextProvider>
+        <MuiThemeProvider>
+          <AuthenticationDetails />
+          <Test />
+          <LocalChange />
+        </MuiThemeProvider>
+      </ContextProvider>
     );
   }
 }
