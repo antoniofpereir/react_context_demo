@@ -12,13 +12,13 @@ export const AppContext = React.createContext();
  * @param  {...any} data input to the action (optional).
  * Returns a wrapper component that will provide the context to all the children.
  */
-export function initContext(actions, ...data) {
+export function initContext(localStorageName, actions, ...data) {
   return class GenericContext extends React.PureComponent {
     constructor() {
       super();
       const newContext = Object.assign(...data);
       const contextFromLocalStorage = JSON.parse(
-        localStorage.getItem('context_test')
+        localStorage.getItem(localStorageName)
       );
 
       /**
@@ -44,7 +44,7 @@ export function initContext(actions, ...data) {
       this.setState(
         prevState => functionalSetState(prevState, ...params),
         () => {
-          localStorage.setItem('context_test', JSON.stringify(this.state));
+          localStorage.setItem(localStorageName, JSON.stringify(this.state));
           console.log('Context in local storage updated to: ', this.state);
         }
       );
