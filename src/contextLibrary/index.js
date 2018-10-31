@@ -17,14 +17,12 @@ export function initContext(localStorageName, actions, ...data) {
     constructor() {
       super();
       const newContext = Object.assign(...data);
-      const contextFromLocalStorage = JSON.parse(
-        localStorage.getItem(localStorageName)
-      );
+      this.contextFromLocalStorage = this.getContextFromLocalStorage();
 
       /**
        * Init context with newContext if contextFromLocalStorage is empty.
        */
-      this.state = contextFromLocalStorage || newContext;
+      this.state = this.contextFromLocalStorage || newContext;
 
       /**
        * Execute function decides functionalSetState based on actionType.
@@ -36,19 +34,34 @@ export function initContext(localStorageName, actions, ...data) {
     }
 
     /**
+     * Saves the state to localStorage after initializing for the first time.
+     */
+    componentDidMount() {
+      if (!this.contextFromLocalStorage) {
+        localStorage.setItem(localStorageName, JSON.stringify(this.state));
+      }
+    }
+
+    /**
      * Uses setState to update context component state and stores the new state in local storage.
      * @param {*} functionalSetState function that returns a state change.
      * @param {*} params used in functionalSetState (optional).
      */
-    setStateAndUpdateLocalStorage(functionalSetState, params) {
+    setStateAndUpdateLocalStorage = (functionalSetState, params) => {
       this.setState(
         prevState => functionalSetState(prevState, ...params),
         () => {
           localStorage.setItem(localStorageName, JSON.stringify(this.state));
-          console.log('Context in local storage updated to: ', this.state);
+          this.contextFromLocalStorage = this.getContextFromLocalStorage();
         }
       );
-    }
+    };
+
+    /**
+     * Retrieves context from localStorage.
+     */
+    getContextFromLocalStorage = () =>
+      JSON.parse(localStorage.getItem(localStorageName));
 
     /**
      * Wraps child components with context provider.
