@@ -13,7 +13,7 @@ export const AppContext = React.createContext();
  * Returns a wrapper component that will provide the context to all the children.
  */
 export function initContext(localStorageName, actions, ...data) {
-  return class GenericContext extends React.PureComponent {
+  return class GenericContext extends React.Component {
     constructor() {
       super();
       const newContext = Object.assign(...data);
@@ -22,7 +22,11 @@ export function initContext(localStorageName, actions, ...data) {
       /**
        * Init context with newContext if contextFromLocalStorage is empty.
        */
-      this.state = this.contextFromLocalStorage || newContext;
+      this.state =
+        this.contextFromLocalStorage &&
+        this.contextFromLocalStorage === newContext
+          ? this.contextFromLocalStorage
+          : newContext;
 
       /**
        * Execute function decides functionalSetState based on actionType.
